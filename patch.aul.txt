@@ -2,7 +2,7 @@ patch.aul r43beta1
 © 2021-2023 ePi
 https://scrapbox.io/ePi5131/patch.aul
 
-patch.aul r43_ss_70
+patch.aul r43_ss_71
 https://scrapbox.io/nazosauna/patch.aul
 
 概要
@@ -223,6 +223,7 @@ https://scrapbox.io/nazosauna/patch.aul
     ・スクリプトからのYCA_RGBA変換の際に横幅が奇数サイズのバッファでエラーとなることがあるのを修正
     ・Susieのプラグインが正常に扱えない問題を修正
     ・相対パス保存プラグインのバグを修正（v0.9bのみ）
+    ・exdataで使われるバイト列変換の過程で問題のある操作をしているのを修正
 
     追加
     ・コンソールの表示
@@ -463,7 +464,7 @@ https://scrapbox.io/nazosauna/patch.aul
         "lua" : boolean, ; lua.*配下のスイッチの主電源 (既定値: true)
             "lua.env" : boolean, ; Luaの環境を統一する (既定値: false)
             "lua.path" : boolean, ; package.path,cpathにパスを追加 (既定値: false)
-            "lua.effect" : boolean, ; effect("filter_name")にてefp->processingが設定されない問題を修正 (既定値: true)
+            "lua.effect" : boolean, ; effect("filter_name")にてefp->processingが設定されない問題を修正、exdataで使われるバイト列変換の過程で問題のある操作をしているのを修正 (既定値: true)
             "lua.load" : boolean, ; load("text")でサイズが正しくないことがあるのを修正 (既定値: true)
             "lua.getvalue" : boolean, ; getvalueで中心座標を取得できるように (既定値: true)
             "lua.rand" : boolean, ; rand関数で例外になるパターンを潰す (既定値: true)
@@ -517,7 +518,7 @@ https://scrapbox.io/nazosauna/patch.aul
 Lua追加要素詳細
     _PATCH
         patch.aulのバージョン情報
-        例として "patch.aul r43_ss_70" のような文字列が格納されている
+        例として "patch.aul r43_ss_71" のような文字列が格納されている
 
     obj.randex(seed,frame)
         seed : integer
