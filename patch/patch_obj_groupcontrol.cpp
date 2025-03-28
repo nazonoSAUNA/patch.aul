@@ -13,24 +13,19 @@
 	along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include "patch_exo_aviutlfilter.hpp"
+#include "patch_obj_groupcontrol.hpp"
 
-
-#ifdef PATCH_SWITCH_EXO_AVIUTL_FILTER
+#ifdef PATCH_SWITCH_OBJ_GROUPCONTROL
 namespace patch {
 
-	__declspec(naked) int __cdecl exo_aviutlfilter_t::asm_func() {
+	__declspec(naked) void __cdecl obj_GroupControl_t::asm_func() {
 		__asm {
-			mov al, byte ptr[esi + 0x3]
-			test al, 0x04
-			jnz skip
-				xor eax, eax
-				ret
-			skip :
-			mov eax, dword ptr[esi + 0x000000cc]
-			ret
+			cmp     ebp, dword ptr [ee.xa6ba8]
+			jnz     jump_ee_x4997e
+				jmp     dword ptr [ee.x497a4]
+			jump_ee_x4997e:
+			jmp     dword ptr [ee.x4997e]
 		}
 	}
-
 } // namespace patch
-#endif // ifdef PATCH_SWITCH_EXO_AVIUTL_FILTER
+#endif // ifdef PATCH_SWITCH_OBJ_GROUPCONTROL

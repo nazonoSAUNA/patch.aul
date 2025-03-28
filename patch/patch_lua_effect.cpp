@@ -27,5 +27,45 @@ namespace patch {
             ret
         }
     }
+
+
+    BOOL ishexchar(char c) {
+        if ('0' <= c) {
+            if (c <= '9') return TRUE;
+            if (c <= 'f') {
+                if ('a' <= c) return TRUE;
+                if ('A' <= c && c <= 'F') return TRUE;
+            }
+        }
+        /*
+          if ('0' <= c && c <= '9') return TRUE;
+          if ('a' <= c && c <= 'f') return TRUE;
+          if ('A' <= c && c <= 'F') return TRUE;
+        */
+        return FALSE;
+    }
+    int hexchar2number(char c) { // 十六進法の文字であることは保証されている前提
+        if (c <= '9') return c - '0';
+        if ('a' <= c) return c - 'a' + 10;
+        return c - 'A' + 10;
+    }
+
+    BOOL __cdecl lua_effect_t::bytestring2byte(uint8_t* dst, int size, char* str) {
+        char* ptr = str;
+        char* max_ptr = str + size * 2 + 1;
+        while (ishexchar(*ptr)) {
+            ptr++;
+            if (max_ptr < ptr) return FALSE;
+        }
+        if (ptr < max_ptr - 1) return FALSE;
+
+        for (int i = size; 0 < i; i--) {
+            *dst = hexchar2number(str[0]) * 16 + hexchar2number(str[1]);
+            dst++; str += 2;
+        }
+        return TRUE;
+    }
+
+
 } // namespace patch
 #endif // ifdef PATCH_SWITCH_LUA_EFFECT

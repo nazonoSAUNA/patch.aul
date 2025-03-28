@@ -497,7 +497,7 @@ namespace patch {
 
     __declspec(naked) void __cdecl AudioFile_t::asm_func_if_speed_1() {
         __asm {
-            cmp     dword ptr [ecx + 0x04], 0x9c
+            cmp     dword ptr [ecx + 0x04], -0x64
             jg      jump_ee_x8fbf8
             jmp     dword ptr [ee.x8fd30]
 
@@ -507,7 +507,7 @@ namespace patch {
     }
     __declspec(naked) void __cdecl AudioFile_t::asm_func_if_speed_2() {
         __asm {
-            cmp     dword ptr[ecx + 0x04], 0x9c
+            cmp     dword ptr[ecx + 0x04], -0x64
             jg      jump_ee_x8fbf8
             jmp     dword ptr[ee.x8ffb1]
 

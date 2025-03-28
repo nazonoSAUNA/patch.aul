@@ -299,6 +299,7 @@
     <ClCompile Include="patch_object_table.cpp" />
     <ClCompile Include="patch_obj_create_figure.cpp" />
     <ClCompile Include="patch_obj_glow.cpp" />
+    <ClCompile Include="patch_obj_groupcontrol.cpp" />
     <ClCompile Include="patch_obj_noise.cpp" />
     <ClCompile Include="patch_obj_normalplay.cpp" />
     <ClCompile Include="patch_obj_portionfilter.cpp" />

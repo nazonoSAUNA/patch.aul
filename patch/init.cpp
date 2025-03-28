@@ -34,7 +34,7 @@ void init_t::InitAtPatchLoaded() {
 		static const char aviutl_version_str[] = {
 			'1','.','1','0','\0','\0','\0','\0'
 		};
-		if (memcmp(reinterpret_cast<void*>(GLOBAL::aviutl_base + OFS::AviUtl::VersionString), aviutl_version_str, sizeof(aviutl_version_str)) != 0) {
+		if (memcmp(reinterpret_cast<void*>(GLOBAL::aviutl_base + OFS::AviUtl::VersionString_110), aviutl_version_str, sizeof(aviutl_version_str)) != 0) {
 			MessageBoxW(NULL, L"patch.aul requires AviUtl *1.10*.\nAviUtl version 1.10以外では動作しません．", L"patch.aul", MB_ICONEXCLAMATION);
 			return;
 		}
@@ -60,8 +60,7 @@ void init_t::InitAtPatchLoaded() {
 		DWORD oldProtect;
 		VirtualProtect(GLOBAL::executable_memory, sizeof(GLOBAL::executable_memory), PAGE_EXECUTE_READWRITE, &oldProtect);
 	}
-	
-	InjectFunction_fastcall(GLOBAL::aviutl_base + OFS::AviUtl::InitAuf, InitAufBefore, 10);
+	InjectFunction_fastcall(GLOBAL::aviutl_base + OFS::AviUtl::InitAuf, InitAufBefore, 5);
 
 	ExchangeFunction(GLOBAL::aviutl_hmod, cstr_kernel32_dll.get(), cstr_LoadLibraryA.get(), LoadLibraryAWrap);
 
@@ -676,12 +675,12 @@ HMODULE WINAPI init_t::LoadLibraryAWrap(LPCSTR lpLibFileName) {
 	if (lstrcmpiA(filename, "exedit.auf") == 0) {
 		if (GLOBAL::exedit_hmod != nullptr)return ret;
 		if (*reinterpret_cast<int*>(GLOBAL::aviutl_base + OFS::AviUtl::vram_yc_size) == 2)return ret; // YUY2FilterMode
-		auto filters = reinterpret_cast<AviUtl::GetFilterTableList_t>(GetProcAddress(ret, reinterpret_cast<LPCSTR>(GLOBAL::aviutl_base + OFS::AviUtl::str_GetFilterTableList)))();
-		if (strcmp(filters[0]->information, "拡張編集(exedit) version 0.92 by ＫＥＮくん") != 0) {
+		if (*reinterpret_cast<int*>((uint32_t)ret + OFS::ExEdit::VersionInt32_092) != 9200) {
 			MessageBoxW(NULL, L"patch.aul requires Exedit version *0.92*.\n拡張編集 version 0.92以外では動作しません．", L"patch.aul", MB_ICONEXCLAMATION);
 			return ret;
 		}
 		GLOBAL::exedit_hmod = ret;
+		auto filters = reinterpret_cast<AviUtl::GetFilterTableList_t>(GetProcAddress(ret, reinterpret_cast<LPCSTR>(GLOBAL::aviutl_base + OFS::AviUtl::str_GetFilterTableList)))();
 		original_func_init = std::exchange(filters[0]->func_init, func_initWrap);
 		original_func_WndProc = std::exchange(filters[0]->func_WndProc, func_WndProcWrap);
 #ifdef _DEBUG

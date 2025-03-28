@@ -25,7 +25,7 @@ namespace patch {
     __declspec(naked) void __cdecl update_count_t::asm_func_filter_switch1() {
         __asm {
             inc     dword ptr [count]
-            cmp     dword ptr [edi + 40], 0x00
+            cmp     dword ptr [edi + 0x40], 0x00
             jz      jmp_au_13f13
             ret
 
@@ -37,7 +37,7 @@ namespace patch {
     __declspec(naked) void __cdecl update_count_t::asm_func_filter_switch2() {
         __asm {
             inc     dword ptr [count]
-            cmp     dword ptr [esi + 40], 0x00
+            cmp     dword ptr [esi + 0x40], 0x00
             jz      jmp_au_2fd19
             ret
 

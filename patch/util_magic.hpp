@@ -30,9 +30,6 @@ inline i32 CalcNearJmp(i32 address, i32 jmp_address) {
 	return jmp_address - (address + 4);
 }
 
-inline i32 GetNearJmpFunctionAddress(i32 address) {
-	return *reinterpret_cast<int*>(address) + (address + 4);
-}
 
 class OverWriteOnProtectHelper {
 	uintptr_t m_address, m_size;
@@ -62,6 +59,10 @@ public:
 	void store_i64(T1 address, T2 value) const {
 		::store_i64(m_address + address, value);
 	}
+	template<class T1, class T2>
+	void store_rel32(T1 address, T2 value) const {
+		::store_rel32(m_address + address, value);
+	}
 
 	template<class T0 = uint8_t, class T1>
 	T0 load_i8(T1 address) const {
@@ -79,9 +80,13 @@ public:
 	T0 load_i64(T1 address) const {
 		return ::load_i64<T0>(m_address + address);
 	}
+	template<class T0 = uint32_t, class T1>
+	T0 load_rel32(T1 address) const {
+		return ::load_rel32<T0>(m_address + address);
+	}
 
-	void replaceNearJmp(i32 offset, void* jmp_address) {
-		store_i32(offset, CalcNearJmp(m_address + offset, reinterpret_cast<i32>(jmp_address)));
+	inline void replaceNearJmp(i32 offset, void* jmp_address) {
+		store_rel32(offset, jmp_address);
 	}
 
 	auto address() const {
@@ -121,7 +126,7 @@ public:
 		auto adr = std::bit_cast<i32>(address);
 		OverWriteOnProtectHelper h(adr, asm_size);
 		store_i8(adr, '\xe9'); // jmp rel32
-		store_i32(adr + 1, CalcNearJmp(adr + 1, (i32)function));
+		store_rel32(adr + 1, function);
 	}
 } ReplaceFunction;
 
@@ -143,28 +148,25 @@ inline BOOL ExchangeFunction(HMODULE hModule, std::string_view modname, std::str
 /// </summary>
 /// <param name="address"> 中断したい関数のアドレス </param>
 /// <param name="function"> 挿入する関数 </param>
-/// <param name="asm_word_n"> 命令単位に合った数(7以上) </param>
+/// <param name="asm_word_n"> 命令単位に合った数(5以上) </param>
 /// <returns> TRUE </returns>
-inline bool InjectFunction_stdcall(uint32_t address, const void* function, size_t asm_word_n) noexcept {
-	std::byte* cursor = GLOBAL::executable_memory_cursor;
+inline bool InjectFunction_stdcall(uint32_t address, const void* func, size_t asm_word_n) noexcept {
+	if (asm_word_n < 5)return false;
 
-	store_i8(cursor, '\xb8'); // mov eax, (i32)
-	store_i32(cursor + 1, function);
-	store_i16(cursor + 5, '\xff\xd0'); // call eax
-	
-	std::copy((std::byte*)address, (std::byte*)address + asm_word_n, cursor + 7);
-	store_i16(cursor + asm_word_n + 7, '\xff\x25'); // jmp [(i32)]
-	store_i32(cursor + asm_word_n + 9, cursor + asm_word_n + 13);
-	store_i32(cursor + asm_word_n + 13, address + asm_word_n);
-	GLOBAL::executable_memory_cursor += asm_word_n + 17;
+	auto& cursor = GLOBAL::executable_memory_cursor;
+	auto bridge = GLOBAL::executable_memory_cursor;
 
-	{
-		OverWriteOnProtectHelper protect(address, 7);
-		store_i8(address, '\xb8'); // mov eax, (i32)
-		store_i32(address + 1, cursor);
-		store_i16(address + 5, '\xff\xe0'); // jmp eax
-	}
-	return TRUE;
+	store_i8(cursor, '\xe8'); cursor++; // CALL (rel32)
+	store_rel32(cursor, func); cursor += 4;
+	std::copy((std::byte*)address, (std::byte*)address + asm_word_n, cursor); cursor += asm_word_n;
+	store_i8(cursor, '\xe9'); cursor++; // JMP (rel32)
+	store_rel32(cursor, address + asm_word_n); cursor += 4;
+
+	OverWriteOnProtectHelper h(address, asm_word_n);
+	h.store_i8(0, '\xe9'); // JMP (rel32)
+	h.store_rel32(1, bridge);
+
+	return true;
 }
 
 /// <summary>
@@ -174,7 +176,7 @@ inline bool InjectFunction_stdcall(uint32_t address, const void* function, size_
 /// </summary>
 /// <param name="address"> 中断したい関数のアドレス </param>
 /// <param name="function"> 挿入する関数 </param>
-/// <param name="asm_word_n"> 命令単位に合った数(7以上) </param>
+/// <param name="asm_word_n"> 命令単位に合った数(5以上) </param>
 /// <returns> TRUE </returns>
 inline bool InjectFunction_cdecl(uint32_t address, const void* function, size_t asm_word_n) noexcept {
 	InjectFunction_stdcall(address, function, asm_word_n);
@@ -187,35 +189,31 @@ inline bool InjectFunction_cdecl(uint32_t address, const void* function, size_t 
 /// </summary>
 /// <param name="address"> 中断したい関数のアドレス </param>
 /// <param name="function"> 挿入する関数 </param>
-/// <param name="asm_word_n"> 命令単位に合った数(7以上) </param>
+/// <param name="asm_word_n"> 命令単位に合った数(5以上) </param>
 /// <returns> TRUE </returns>
 inline bool InjectFunction_fastcall(uint32_t address, void(*func)(), size_t asm_word_n) {
-	if (asm_word_n < 7)return false;
-	OverWriteOnProtectHelper helper(address, asm_word_n);
+	if (asm_word_n < 5)return false;
 
+	auto& cursor = GLOBAL::executable_memory_cursor;
 	auto bridge = GLOBAL::executable_memory_cursor;
 
-	store_i16(bridge, '\x51\x52'); // PUSH ECX; PUSH EDX
-	store_i8(bridge + 2, '\xb8'); // MOV EAX, (i32)
-	store_i32(bridge + 3, func);
-	store_i16(bridge + 7, '\xff\xd0'); // CALL EAX
-	store_i16(bridge + 9, '\x5a\x59'); // POP EDX; POP ECX
-	std::copy((std::byte*)address, (std::byte*)address + asm_word_n, bridge + 11);
-	store_i16(bridge + asm_word_n + 11, '\xff\x25'); // JMP (i32)
-	store_i32(bridge + asm_word_n + 13, bridge + asm_word_n + 17);
-	store_i32(bridge + asm_word_n + 17, address + asm_word_n);
-	GLOBAL::executable_memory_cursor += asm_word_n + 21;
+	store_i32(cursor, '\x51\x52\xe8\x00'); cursor += 3; // PUSH ECX; PUSH EDX; CALL (rel32)
+	store_rel32(cursor, func); cursor += 4;
+	store_i16(cursor, '\x5a\x59'); cursor += 2; // POP EDX; POP ECX
+	std::copy((std::byte*)address, (std::byte*)address + asm_word_n, cursor); cursor += asm_word_n;
+	store_i8(cursor, '\xe9'); cursor++; // JMP (rel32)
+	store_rel32(cursor, address + asm_word_n); cursor += 4;
 
-	store_i8(address, '\xb8'); // MOV EAX,
-	store_i32(address + 1, bridge);
-	store_i16(address + 5, '\xff\xe0'); // JMP EAX
+	OverWriteOnProtectHelper h(address, asm_word_n);
+	h.store_i8(0, '\xe9'); // JMP (rel32)
+	h.store_rel32(1, bridge);
 
 	return true;
 }
 
 
 
-inline static intptr_t __cdecl push_new_args(void* function, int arg_ofs, int arg_n);
+inline static intptr_t __cdecl repush_args_call(void* function, int arg_ofs, int arg_n);
 
 /// <summary>
 /// 指定したアドレスにて、自分の関数を実行する
@@ -235,8 +233,8 @@ inline static intptr_t __cdecl push_new_args(void* function, int arg_ofs, int ar
 // それ以外は呼出規約として関数側が行っている
 inline void InjectionFunction_push_args_cdecl(uint32_t address, const uint32_t function, size_t asm_word_n, uint16_t stack_s, uint8_t arg_n, uint32_t flag) {
 	auto& cursor = GLOBAL::executable_memory_cursor;
-	auto cursor0 = GLOBAL::executable_memory_cursor;
-	stack_s++; // バイナリ関数retアドレス分
+	auto bridge = GLOBAL::executable_memory_cursor;
+	stack_s++; // バイナリ関数にpush ebpがある分
 	// push
 	if (flag & FLAG_PUSH_POP_EAX) {
 		store_i8(cursor, 0x50); cursor++;
@@ -259,7 +257,7 @@ inline void InjectionFunction_push_args_cdecl(uint32_t address, const uint32_t f
 	store_i8(cursor, 0xba); cursor++; // mov edx, stack_s
 	store_i32(cursor, stack_s); cursor += 4;
 	store_i8(cursor, 0xe8); cursor++;
-	store_i32(cursor, CalcNearJmp((uint32_t)cursor, (uint32_t)push_new_args)); cursor += 4;
+	store_rel32(cursor, &repush_args_call); cursor += 4;
 
 	// pop
 	if (flag & FLAG_PUSH_POP_EDX) {
@@ -275,33 +273,33 @@ inline void InjectionFunction_push_args_cdecl(uint32_t address, const uint32_t f
 	memcpy(cursor, (void*)address, asm_word_n); cursor += asm_word_n;
 
 	store_i8(cursor, 0xe9); cursor++;
-	store_i32(cursor, CalcNearJmp((uint32_t)cursor, address + asm_word_n)); cursor += 4;
+	store_rel32(cursor, address + asm_word_n); cursor += 4;
 
 
 	OverWriteOnProtectHelper h(address, 5);
 	h.store_i8(0, 0xe9);
-	h.replaceNearJmp(1, cursor0);
+	h.replaceNearJmp(1, bridge);
 }
 
-inline __declspec(naked) intptr_t push_new_args(void* eax_function, int ecx_arg_n, int edx_arg_of) {
-    __asm {
-        push    ebp
-		mov     ebp, esp
-        add     edx, ecx
-        lea     edx, [esp + edx * 4]
-        test    ecx, ecx
-        jle     skip
+inline __declspec(naked) intptr_t repush_args_call(void* eax_function, int ecx_arg_n, int edx_arg_of) {
+	__asm {
+		push	ebp
+		mov		ebp, esp
+		add		edx, ecx
+		lea		edx, [esp + edx * 4]
+		test	ecx, ecx
+		jle		skip
 			back:
-				push    dword ptr [edx]
-				sub     edx, 4
-			loop    back
+				push	dword ptr [edx]
+				sub		edx, 4
+			loop	back
 		skip:
-        
-        call    eax
-        mov     esp, ebp
-        pop     ebp
-        ret
-    }
+		
+		call	eax
+		mov		esp, ebp
+		pop		ebp
+		ret
+	}
 }
 
 

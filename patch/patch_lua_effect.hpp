@@ -26,11 +26,14 @@ namespace patch {
 
     // init at exedit load
     // obj.effect("filter_name")にてefp->proccesingが変わらないのを修正
+    // exdataで使われる文字列変換の過程で、問題のある文字列操作をしているのを修正 例；obj.effect("縁取り","color","ffffff")
 
     inline class lua_effect_t {
         bool enabled = true;
         bool enabled_i;
         inline static const char key[] = "lua.effect";
+
+        static BOOL __cdecl bytestring2byte(uint8_t* dst, int size, char* str);
 
         inline static struct _ofs {
             int32_t script_efp_ptr = OFS::ExEdit::script_efp;
@@ -45,7 +48,7 @@ namespace patch {
 
             add_base(GLOBAL::exedit_base, &ee, sizeof(ee));
 
-            {
+            { // obj.effect("filter_name")にてefp->proccesingが変わらないのを修正
                 /*
                     1005d20e 8983f4000000       mov     dword ptr [ebx+000000f4],eax
                     ↓
@@ -63,6 +66,9 @@ namespace patch {
                 h.store_i16(0, '\x90\xe8');
                 h.replaceNearJmp(2, &asm_func);
 
+            }
+            { // exdataで使われる文字列変換の過程で、問題のある文字列操作をしているのを修正
+                ReplaceNearJmp(GLOBAL::exedit_base + 0x5d4c3, &bytestring2byte);
             }
         }
 

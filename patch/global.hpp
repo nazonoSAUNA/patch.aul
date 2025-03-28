@@ -24,7 +24,7 @@
 namespace GLOBAL {
 	inline HMODULE exedit_hmod = nullptr;
 	inline uint32_t& exedit_base = (uint32_t&)exedit_hmod;
-	inline std::byte executable_memory[USN_PAGE_SIZE * 16];
+	inline std::byte executable_memory[USN_PAGE_SIZE * 1]; // r43_ss_71時点での使用量は0x020f
 	inline std::byte* executable_memory_cursor = executable_memory;
 	inline std::wstring patchaul_path;
 	inline std::wstring patchaul_config_path;

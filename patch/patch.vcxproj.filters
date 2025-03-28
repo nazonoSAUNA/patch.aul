@@ -1024,6 +1024,9 @@
     <ClCompile Include="patch_audio_layer_end.cpp">
       <Filter>feature</Filter>
     </ClCompile>
+    <ClCompile Include="patch_obj_groupcontrol.cpp">
+      <Filter>feature</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="patch.rc" />

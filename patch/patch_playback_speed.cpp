@@ -28,7 +28,7 @@ namespace patch {
 		__asm {
 			mov     edx, dword ptr [ee.x177a10]
 			mov     eax, dword ptr [esp + 0x08]
-			movzx   eax, word ptr [eax + 0xe4]
+			movzx   eax, word ptr [eax + 0x000000e4]
 			dec     eax
 			cmp     eax, dword ptr [edx]
 			jz      SKIP

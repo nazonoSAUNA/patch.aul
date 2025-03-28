@@ -21,7 +21,7 @@ namespace OFS {
 		constexpr i32 __report_securityfailure = 0x062cf8;
 
 		constexpr i32 InitAuf = 0x02c930;
-		constexpr i32 VersionString = 0x07425c;
+		constexpr i32 VersionString_110 = 0x07425c;
 		constexpr i32 default_resource_hmod = 0x2c525c;
 		constexpr i32 getsys_versionstr_arg = 0x022187;
 		constexpr i32 current_resource_hmod = 0x2d910c;
@@ -94,7 +94,8 @@ namespace OFS {
 		constexpr i32 aviutl_hwnd = 0x135c6c;
 		constexpr i32 exedit_hwnd = 0x177a44;
 		constexpr i32 settingdialog_hwnd = 0x1539c8;
-		
+
+		constexpr i32 VersionInt32_092 = 0x04d726;
 
 		constexpr i32 tl_title = 0x0a4cfc;
 

@@ -61,7 +61,7 @@ namespace patch {
             status = STATUS_INITIALIZING;
 
             ReplaceNearJmp(GLOBAL::aviutl_base + 0x0041ab, &__report_securityfailure_wrap);
-            (exit_org) = reinterpret_cast<decltype(exit_org)>(GetNearJmpFunctionAddress(GLOBAL::aviutl_base + 0x007912));
+            (exit_org) = reinterpret_cast<decltype(exit_org)>(load_rel32(GLOBAL::aviutl_base + 0x007912));
             ReplaceNearJmp(GLOBAL::aviutl_base + 0x007912, &exit_wrap);
         }
 

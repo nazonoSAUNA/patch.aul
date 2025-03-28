@@ -32,15 +32,25 @@ namespace patch {
         bool enabled = true;
         bool enabled_i;
         inline static const char key[] = "obj_groupcontrol";
+
+
+        inline static struct _ofs {
+            int32_t xa6ba8 = 0xa6ba8;
+            int32_t x497a4 = 0x497a4;
+            int32_t x4997e = 0x4997e;
+        }ee;
+        static void __cdecl asm_func();
+        // add_base(GLOBAL::exedit_base, &ee, sizeof(ee));
+
     public:
         void init() {
             enabled_i = enabled;
 
             if (!enabled_i)return;
 
-            auto& cursor = GLOBAL::executable_memory_cursor;
+            add_base(GLOBAL::exedit_base, &ee, sizeof(ee));
 
-            OverWriteOnProtectHelper(GLOBAL::exedit_base + 0x049782, 4).replaceNearJmp(0, cursor);
+            ReplaceNearJmp(GLOBAL::exedit_base + 0x049782, &asm_func);
             /*
                 10049780 0f84f8010000       jz      1004997e
                 ↓
@@ -50,12 +60,6 @@ namespace patch {
                 10000000 0f84XxXxXxXx       jz      ee+497a4
                 10000000 e9XxXxXxXx         jmp     ee+4997e
             */
-            store_i16(cursor, '\x81\xfd'); cursor += 2;
-            store_i32(cursor, GLOBAL::exedit_base + 0x0a6ba8); cursor += 4;
-            store_i16(cursor, '\x0f\x84'); cursor += 2;
-            store_i32(cursor, GLOBAL::exedit_base + 0x0497a4 - (int)cursor - 4); cursor += 4;
-            store_i8(cursor, '\xe9'); cursor++;
-            store_i32(cursor, GLOBAL::exedit_base + 0x04997e - (int)cursor - 4); cursor += 4;
 
         }
 

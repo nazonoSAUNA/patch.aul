@@ -36,6 +36,9 @@ inline void store_i32(auto address, auto value) {
 inline void store_i64(auto address, auto value) {
 	*std::bit_cast<i64*>(address) = (i64)value;
 }
+inline void store_rel32(auto target_addr, auto dst_addr) {
+	store_i32(target_addr, (i32)dst_addr - ((i32)target_addr + 4));
+}
 
 template<class T0 = uint8_t, class T1>
 inline T0 load_i8(T1 address) {
@@ -56,6 +59,11 @@ template<class T0 = uint64_t, class T1>
 inline T0 load_i64(T1 address) {
 	static_assert(sizeof(T0) == sizeof(i64));
 	return *std::bit_cast<std::add_pointer_t<T0>>(address);
+}
+template<class T0 = uint32_t, class T1>
+inline T0 load_rel32(T1 address) {
+	static_assert(sizeof(T0) == sizeof(i32));
+	return load_i32(address) + (i32)address + 4;
 }
 
 template<class T0, class T1>
