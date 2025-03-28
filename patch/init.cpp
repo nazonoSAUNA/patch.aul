@@ -675,7 +675,7 @@ HMODULE WINAPI init_t::LoadLibraryAWrap(LPCSTR lpLibFileName) {
 	if (lstrcmpiA(filename, "exedit.auf") == 0) {
 		if (GLOBAL::exedit_hmod != nullptr)return ret;
 		if (*reinterpret_cast<int*>(GLOBAL::aviutl_base + OFS::AviUtl::vram_yc_size) == 2)return ret; // YUY2FilterMode
-		if (*reinterpret_cast<int*>((uint32_t)ret + OFS::ExEdit::VersionInt32_092) != 9200) {
+		if (load_i32((uint32_t)ret + OFS::ExEdit::VersionInt32_092) != 9200) {
 			MessageBoxW(NULL, L"patch.aul requires Exedit version *0.92*.\n拡張編集 version 0.92以外では動作しません．", L"patch.aul", MB_ICONEXCLAMATION);
 			return ret;
 		}
