@@ -2,7 +2,7 @@ patch.aul r43beta1
 © 2021-2023 ePi
 https://scrapbox.io/ePi5131/patch.aul
 
-patch.aul r43_ss_71
+patch.aul r43_ss_72
 https://scrapbox.io/nazosauna/patch.aul
 
 概要
@@ -518,7 +518,7 @@ https://scrapbox.io/nazosauna/patch.aul
 Lua追加要素詳細
     _PATCH
         patch.aulのバージョン情報
-        例として "patch.aul r43_ss_71" のような文字列が格納されている
+        例として "patch.aul r43_ss_72" のような文字列が格納されている
 
     obj.randex(seed,frame)
         seed : integer
