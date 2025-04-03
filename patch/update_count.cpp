@@ -27,10 +27,9 @@ namespace patch {
             inc     dword ptr [count]
             cmp     dword ptr [edi + 0x40], 0x00
             jz      jmp_au_13f13
-            ret
+            jmp     dword ptr [au.x13f01]
 
             jmp_au_13f13:
-            add     esp, 0x04
             jmp     dword ptr [au.x13f13]
         }
     }
@@ -39,10 +38,9 @@ namespace patch {
             inc     dword ptr [count]
             cmp     dword ptr [esi + 0x40], 0x00
             jz      jmp_au_2fd19
-            ret
+            jmp     dword ptr [au.x30340]
 
             jmp_au_2fd19 :
-            add     esp, 0x04
             jmp     dword ptr [au.x2fd19]
         }
     }

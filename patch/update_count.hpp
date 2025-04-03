@@ -45,8 +45,10 @@ namespace patch {
 
 
         inline static struct _ofs_au {
+            int32_t x13f01 = 0x13f01;
             int32_t x13f13 = 0x13f13;
             int32_t x2fd19 = 0x2fd19;
+            int32_t x30340 = 0x30340;
         }au;
         static void __cdecl asm_func_filter_switch1();
         static void __cdecl asm_func_filter_switch2();
@@ -91,7 +93,7 @@ namespace patch {
                         cursor10 e9XxXxXxXx         jmp     au+13f01
                     */
                     OverWriteOnProtectHelper h(GLOBAL::aviutl_base + 0x13efb, 5);
-                    h.store_i8(0, '\xe8'); // callにしてasm側でesp調整
+                    h.store_i8(0, '\xe9');
                     h.replaceNearJmp(1, &asm_func_filter_switch1);
                 }
                 {
@@ -109,7 +111,7 @@ namespace patch {
 
                     */
                     OverWriteOnProtectHelper h(GLOBAL::aviutl_base + 0x30336, 5);
-                    h.store_i8(0, '\xe8'); // callにしてasm側でesp調整
+                    h.store_i8(0, '\xe9');
                     h.replaceNearJmp(1, &asm_func_filter_switch2);
                 }
             }
