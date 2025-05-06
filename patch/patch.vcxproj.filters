@@ -596,9 +596,6 @@
     <ClInclude Include="patch_ggo_bitmap_text.hpp">
       <Filter>feature</Filter>
     </ClInclude>
-    <ClInclude Include="patch_lua_load.hpp">
-      <Filter>feature\fast</Filter>
-    </ClInclude>
     <ClInclude Include="patch_relative_path.hpp">
       <Filter>feature</Filter>
     </ClInclude>
@@ -611,6 +608,10 @@
     <ClInclude Include="patch_audio_filtered_cache.hpp">
       <Filter>feature</Filter>
     </ClInclude>
+    <ClInclude Include="patch_lua_load.hpp">
+      <Filter>feature</Filter>
+    </ClInclude>
+    <ClInclude Include="fast_div.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="init.cpp" />
@@ -1025,6 +1026,9 @@
       <Filter>feature</Filter>
     </ClCompile>
     <ClCompile Include="patch_obj_groupcontrol.cpp">
+      <Filter>feature</Filter>
+    </ClCompile>
+    <ClCompile Include="patch_aup_layer_setting.cpp">
       <Filter>feature</Filter>
     </ClCompile>
   </ItemGroup>

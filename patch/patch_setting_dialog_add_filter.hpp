@@ -30,10 +30,11 @@ namespace patch {
     // 主にプラグインで本来付けられないフィルタ効果を付与できてしまうのを修正
 
     inline class settingdialog_add_filter_t {
-        static bool check_add_filter_type(int object_idx, int filter_idx);
+
+        static bool is_filter_applicable(int object_idx, int filter_idx);
         static void set_last_menu_object_flag(int object_idx);
         static void __stdcall SendMessageA_wrap(HWND hWnd, WPARAM wParam, LPARAM lParam);
-
+        static int __cdecl append_filter_effect_wrap(int object_idx, int filter_idx);
 
         bool enabled = true;
         bool enabled_i;
@@ -43,18 +44,23 @@ namespace patch {
             enabled_i = enabled;
             if (!enabled_i)return;
 
-            /*
-                1002d927 6811010000         push    00000111 ;WM_COMMAND
-                1002d92c 50                 push    eax ;exedit_hwnd
-                1002d92d ffd5               call    ebp ;SendMessageA
-                ↓
-                1002d927 50                 push    eax
-                1002d928 6690               nop
-                1002d92a e8XxXxXxXx         call    newfunc
-            */
-            OverWriteOnProtectHelper h(GLOBAL::exedit_base + 0x2d927, 8);
-            h.store_i32(0, '\x50\x66\x90\xe8');
-            h.replaceNearJmp(4, &SendMessageA_wrap);
+            {
+                /*
+                    1002d927 6811010000         push    00000111 ;WM_COMMAND
+                    1002d92c 50                 push    eax ;exedit_hwnd
+                    1002d92d ffd5               call    ebp ;SendMessageA
+                    ↓
+                    1002d927 50                 push    eax
+                    1002d928 6690               nop
+                    1002d92a e8XxXxXxXx         call    newfunc
+                */
+                OverWriteOnProtectHelper h(GLOBAL::exedit_base + 0x2d927, 8);
+                h.store_i32(0, '\x50\x66\x90\xe8');
+                h.replaceNearJmp(4, &SendMessageA_wrap);
+            }
+            { // exa
+                ReplaceNearJmp(GLOBAL::exedit_base + 0x2a22e, &append_filter_effect_wrap);
+            }
 
         }
 

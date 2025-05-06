@@ -19,9 +19,21 @@
 namespace patch {
 
 	// Object[idx]のオブジェクトにLoadedFilterTable[filter_id]のフィルタが付与できるかを判定する関数
-	bool settingdialog_add_filter_t::check_add_filter_type(int object_idx, int filter_id) {
-		auto obj = *(ExEdit::Object**)(GLOBAL::exedit_base + OFS::ExEdit::ObjectArrayPointer) + object_idx;
-		auto efpt = (ExEdit::Filter**)(GLOBAL::exedit_base + OFS::ExEdit::LoadedFilterTable);
+	bool settingdialog_add_filter_t::is_filter_applicable(int object_idx, int filter_id) {
+		if (*reinterpret_cast<uint32_t*>(GLOBAL::exedit_base + OFS::ExEdit::ObjectAllocNum) <= (uint32_t)object_idx) {
+			return false;
+		}
+		if (*reinterpret_cast<uint32_t*>(GLOBAL::exedit_base + OFS::ExEdit::LoadedFilterCount) <= (uint32_t)filter_id) {
+			return false;
+		}
+
+		auto obj = *reinterpret_cast<ExEdit::Object**>(GLOBAL::exedit_base + OFS::ExEdit::ObjectArrayPointer);
+		if (0 <= obj[object_idx].index_midpt_leader) {
+			object_idx = obj[object_idx].index_midpt_leader;
+		}
+		obj = &obj[object_idx];
+
+		auto efpt = reinterpret_cast<ExEdit::Filter**>(GLOBAL::exedit_base + OFS::ExEdit::LoadedFilterTable);
 
 		auto base_flag = efpt[obj->filter_param->id]->flag;
 		auto filter_flag = efpt[filter_id]->flag;
@@ -61,11 +73,18 @@ namespace patch {
 
 	void __stdcall settingdialog_add_filter_t::SendMessageA_wrap(HWND hWnd, WPARAM wParam, LPARAM lParam) {
 		int object_idx = *(int*)(GLOBAL::exedit_base + OFS::ExEdit::SettingDialog_ObjIdx);
-		if (check_add_filter_type(object_idx, lParam)) {
+		if (is_filter_applicable(object_idx, lParam)) {
 			set_last_menu_object_flag(object_idx);
 			
 			SendMessageA(hWnd, WM_COMMAND, wParam, lParam);
 		}
+	}
+
+	int __cdecl settingdialog_add_filter_t::append_filter_effect_wrap(int object_idx, int filter_idx) {
+		if (!is_filter_applicable(object_idx, filter_idx)) {
+			return -1;
+		}
+		return reinterpret_cast<int(__cdecl*)(int, int)>(GLOBAL::exedit_base + OFS::ExEdit::append_filter_effect)(object_idx, filter_idx);
 	}
 
 } // namespace patch

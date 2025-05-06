@@ -20,6 +20,7 @@
     <ClInclude Include="config_rw.hpp" />
     <ClInclude Include="cryptostring.hpp" />
     <ClInclude Include="debug_log.hpp" />
+    <ClInclude Include="fast_div.hpp" />
     <ClInclude Include="gate.hpp" />
     <ClInclude Include="global.hpp" />
     <ClInclude Include="global_minimum.hpp" />
@@ -234,37 +235,88 @@
     <ClInclude Include="patch_setting_dialog_move.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="init.cpp" />
-    <ClCompile Include="overwrite_resource.cpp" />
-    <ClCompile Include="patch.cpp" />
-    <ClCompile Include="patch_add_extension.cpp" />
-    <ClCompile Include="patch_adjust_vmem.cpp" />
-    <ClCompile Include="patch_any_obj.cpp" />
-    <ClCompile Include="patch_audio_ee_main.cpp" />
-    <ClCompile Include="patch_audio_filtered_cache.cpp" />
-    <ClCompile Include="patch_audio_layer_end.cpp" />
-    <ClCompile Include="patch_aup_load.cpp" />
-    <ClCompile Include="patch_aviutl_wndproc_override.cpp" />
-    <ClCompile Include="patch_avi_file_handle_close.cpp" />
-    <ClCompile Include="patch_avi_file_handle_share.cpp" />
+    <ClCompile Include="init.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="overwrite_resource.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_add_extension.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_adjust_vmem.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_any_obj.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_audio_ee_main.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_audio_filtered_cache.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_audio_layer_end.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_aup_layer_setting.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_aup_load.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_aviutl_wndproc_override.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_avi_file_handle_close.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_avi_file_handle_share.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
     <ClCompile Include="patch_blend.cpp" />
-    <ClCompile Include="patch_border_only_text.cpp" />
-    <ClCompile Include="patch_camera_scene.cpp" />
-    <ClCompile Include="patch_change_disp_scene.cpp" />
-    <ClCompile Include="patch_exa_camera.cpp" />
-    <ClCompile Include="patch_exclusion_font.cpp" />
-    <ClCompile Include="patch_exc_avi_file.cpp" />
+    <ClCompile Include="patch_border_only_text.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_camera_scene.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_change_disp_scene.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_exa_camera.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_exclusion_font.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_exc_avi_file.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
     <ClCompile Include="patch_exfilter_convexedge.cpp" />
     <ClCompile Include="patch_exfilter_flash.cpp" />
     <ClCompile Include="patch_exfilter_gradation.cpp" />
     <ClCompile Include="patch_exfilter_noise.cpp" />
     <ClCompile Include="patch_exfilter_sharp.cpp" />
     <ClCompile Include="patch_exfilter_specialcolorconv.cpp" />
-    <ClCompile Include="patch_exo_aviutlfilter.cpp" />
-    <ClCompile Include="patch_exo_fold_gui.cpp" />
-    <ClCompile Include="patch_exo_midpt_and_tra.cpp" />
-    <ClCompile Include="patch_failed_file_drop.cpp" />
-    <ClCompile Include="patch_failed_max_frame.cpp" />
+    <ClCompile Include="patch_exo_aviutlfilter.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_exo_fold_gui.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_exo_midpt_and_tra.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_failed_file_drop.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_failed_max_frame.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
     <ClCompile Include="patch_fast_audio_spectrum.cpp" />
     <ClCompile Include="patch_fast_blur.cpp" />
     <ClCompile Include="patch_fast_borderblur.cpp" />
@@ -288,14 +340,30 @@
     <ClCompile Include="patch_fast_wipe.cpp" />
     <ClCompile Include="patch_fast_yc_filter_effect.cpp" />
     <ClCompile Include="patch_ggo_bitmap_text.cpp" />
-    <ClCompile Include="patch_group_camera_scene.cpp" />
-    <ClCompile Include="patch_group_id.cpp" />
-    <ClCompile Include="patch_init_window_pos.cpp" />
-    <ClCompile Include="patch_keyconfig.cpp" />
-    <ClCompile Include="patch_load_exedit_backup.cpp" />
-    <ClCompile Include="patch_lua_effect.cpp" />
-    <ClCompile Include="patch_midpt_delete.cpp" />
-    <ClCompile Include="patch_object_copy.cpp" />
+    <ClCompile Include="patch_group_camera_scene.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_group_id.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_init_window_pos.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_keyconfig.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_load_exedit_backup.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_lua_effect.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_midpt_delete.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_object_copy.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
     <ClCompile Include="patch_object_table.cpp" />
     <ClCompile Include="patch_obj_create_figure.cpp" />
     <ClCompile Include="patch_obj_glow.cpp" />
@@ -308,25 +376,59 @@
     <ClCompile Include="patch_obj_text.cpp" />
     <ClCompile Include="patch_obj_volumefade.cpp" />
     <ClCompile Include="patch_obj_waveform.cpp" />
-    <ClCompile Include="patch_page_size_alloc.cpp" />
-    <ClCompile Include="patch_paste_pos.cpp" />
-    <ClCompile Include="patch_playback_pos.cpp" />
-    <ClCompile Include="patch_playback_speed.cpp" />
+    <ClCompile Include="patch_page_size_alloc.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_paste_pos.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_playback_pos.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_playback_speed.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
     <ClCompile Include="patch_read_audio.cpp" />
-    <ClCompile Include="patch_relative_path.cpp" />
+    <ClCompile Include="patch_relative_path.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
     <ClCompile Include="patch_rendering.cpp" />
-    <ClCompile Include="patch_scene_vram.cpp" />
-    <ClCompile Include="patch_setting_dialog_color_picker.cpp" />
-    <ClCompile Include="patch_setting_dialog_add_filter.cpp" />
-    <ClCompile Include="patch_setting_dialog_chromakey.cpp" />
-    <ClCompile Include="patch_setting_dialog_next.cpp" />
-    <ClCompile Include="patch_set_frame.cpp" />
-    <ClCompile Include="patch_shared_cache.cpp" />
-    <ClCompile Include="patch_exception_log.cpp" />
-    <ClCompile Include="patch_exception_log_dialog.cpp" />
-    <ClCompile Include="patch_exo_trackminusval.cpp" />
-    <ClCompile Include="patch_failed_longer_path.cpp" />
-    <ClCompile Include="patch_failed_sjis_msgbox.cpp" />
+    <ClCompile Include="patch_scene_vram.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_setting_dialog_color_picker.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_setting_dialog_add_filter.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_setting_dialog_chromakey.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_setting_dialog_next.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_set_frame.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_shared_cache.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_exception_log.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_exception_log_dialog.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_exo_trackminusval.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_failed_longer_path.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_failed_sjis_msgbox.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
     <ClCompile Include="patch_fast_border.cpp" />
     <ClCompile Include="patch_fast_create_figure.cpp" />
     <ClCompile Include="patch_fast_directionalblur.cpp" />
@@ -340,40 +442,98 @@
     <ClCompile Include="patch_fast_radiationalblur.cpp" />
     <ClCompile Include="patch_fast_setting_dialog.cpp" />
     <ClCompile Include="patch_fast_text.cpp" />
-    <ClCompile Include="patch_helpful_msgbox.cpp" />
-    <ClCompile Include="patch_lua.cpp" />
-    <ClCompile Include="patch_lua_getvalueex.cpp" />
-    <ClCompile Include="patch_lua_rand.cpp" />
-    <ClCompile Include="patch_lua_randex.cpp" />
-    <ClCompile Include="patch_console.cpp" />
+    <ClCompile Include="patch_helpful_msgbox.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_lua.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_lua_getvalueex.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_lua_rand.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_lua_randex.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_console.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
     <ClCompile Include="patch_obj_audiofile.cpp" />
     <ClCompile Include="patch_obj_colorcorrection.cpp" />
     <ClCompile Include="patch_obj_imageloop.cpp" />
     <ClCompile Include="patch_obj_lensblur.cpp" />
-    <ClCompile Include="patch_rclickmenu_delete.cpp" />
-    <ClCompile Include="patch_rclickmenu_split.cpp" />
-    <ClCompile Include="patch_redo.cpp" />
-    <ClCompile Include="patch_scene_cache.cpp" />
-    <ClCompile Include="patch_setting_dialog_excolorconfig.cpp" />
-    <ClCompile Include="patch_setting_dialog_wndproc_override.cpp" />
-    <ClCompile Include="patch_setting_new_project.cpp" />
-    <ClCompile Include="patch_splash.cpp" />
-    <ClCompile Include="patch_str2int.cpp" />
-    <ClCompile Include="patch_str_minusval.cpp" />
-    <ClCompile Include="patch_susie_load.cpp" />
-    <ClCompile Include="patch_swap_filter.cpp" />
-    <ClCompile Include="patch_theme_cc.cpp" />
-    <ClCompile Include="patch_trackbar.cpp" />
-    <ClCompile Include="patch_tra_acc_dec_movement.cpp" />
-    <ClCompile Include="patch_tra_aviutlfilter.cpp" />
-    <ClCompile Include="patch_tra_change_drawfilter.cpp" />
-    <ClCompile Include="patch_tra_change_mode.cpp" />
-    <ClCompile Include="patch_tra_specified_speed.cpp" />
-    <ClCompile Include="patch_undo.cpp" />
-    <ClCompile Include="patch_wave_file_reader.cpp" />
-    <ClCompile Include="patch_yc_rgb_conv.cpp" />
+    <ClCompile Include="patch_rclickmenu_delete.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_rclickmenu_split.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_redo.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_scene_cache.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_setting_dialog_excolorconfig.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_setting_dialog_wndproc_override.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_setting_new_project.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_splash.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_str2int.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_str_minusval.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_susie_load.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_swap_filter.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_theme_cc.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_trackbar.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_tra_acc_dec_movement.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_tra_aviutlfilter.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_tra_change_drawfilter.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_tra_change_mode.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_tra_specified_speed.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_undo.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_wave_file_reader.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
+    <ClCompile Include="patch_yc_rgb_conv.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MaxSpeed</Optimization>
+    </ClCompile>
     <ClCompile Include="update_count.cpp" />
-    <ClCompile Include="util_others.cpp" />
+    <ClCompile Include="util_others.cpp">
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="patch.rc" />

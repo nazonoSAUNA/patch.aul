@@ -40,6 +40,8 @@ namespace patch {
 
         inline static const char key[] = "aup_layer_setting";
 
+        static void __cdecl clamp_edx_0_49();
+
     public:
 
         void init() {
@@ -48,6 +50,8 @@ namespace patch {
             if (!enabled_i)return;
 
             /*
+                100326ae 8b0d50621410       mov     ecx,dword ptr [10146250]
+                100326b4 896c241c           mov     dword ptr [esp+1c],ebp
                 100326b8 3bcb               cmp     ecx,ebx ; ecx=ObjectCount, ebx=i(0～ObjectCount)
                 100326ba 895c2410           mov     dword ptr [esp+10],ebx ; 0
                 100326be 895c2414           mov     dword ptr [esp+14],ebx ; 0
@@ -76,35 +80,31 @@ namespace patch {
                 ↓
 
 
-                100326b8 3bcb               cmp     ecx,ebx
-                100326ba 895c2410           mov     dword ptr [esp+10],ebx
-                100326be 895c2414           mov     dword ptr [esp+14],ebx
-                100326c2 7e1c               jng     100326e0
-                100326c4 8b0c85a88f1610     mov     ecx,dword ptr [eax*4+10168fa8]
+                100326c2 7e1b               jng     100326df
+                100326c4 8b1485a88f1610     mov     edx,dword ptr [eax*4+10168fa8]
                 100326cb 40                 inc     eax
-                100326cc 8b91c4050000       mov     edx,dword ptr [ecx+000005c4]
-                100326d2 c6041601           mov     byte ptr [esi+edx],01
+                100326cc 8b92c4050000       mov     edx,dword ptr [edx+000005c4]
+                100326d2 e8XxXxXxXx         call    clamp_edx_0_49
 
-                100326d6 8b0d506214Xx       mov     ecx,dword ptr [10146250]
-                100326dc 3bc1               cmp     eax,ecx
-                100326de 7ce4               jl      100326c4
+                100326d7 c6041601           mov     byte ptr [esi+edx],01
+                100326db 3bc1               cmp     eax,ecx
+                100326dd 7ce5               jl      100326c4
 
 
-                100326e0 b810270000         mov     eax,0x2710 ; 10000
-                100326e5 48                 dec     eax
-                100326e6 8b0c85988418Xx     mov     ecx,dword ptr [eax*4 + exedit+188498] ; scene_setting
-                100326ed 85c9               test    ecx,ecx
-                100326ef 7409               jz      skip,9 ; 100326fa
+                100326df b810270000         mov     eax,0x2710 ; 10000 flagとnameのチェックを同一処理で2倍
+                100326e4 48                 dec     eax
+                100326e5 8b0c85988418Xx     mov     ecx,dword ptr [eax*4 + exedit+188498] ; layer_setting
+                100326ec 85c9               test    ecx,ecx
+                100326ee 7409               jz      skip,9 ; 100326fa
 
-                100326f1 8bd0               mov     edx,eax
-                100326f3 c1ea01             shr     edx,1
-                100326f6 c6042a01           mov     byte ptr [edx+ebp],01
+                100326f0 8bd0               mov     edx,eax
+                100326f2 c1ea01             shr     edx,1
+                100326f5 c6042a01           mov     byte ptr [edx+ebp],01
 
-                100326fa 85c0               test    eax,eax
-                100326fc 75e7               jnz     back,19 ; 100326e5
+                100326f9 85c0               test    eax,eax
+                100326fb 75e7               jnz     back,19 ; 100326e5
 
-                100326fe 90                 nop
-                100326ff 90                 nop
+                100326fd 0f1f00             nop
 
                 for(int i=0;i<ObjectCount;i++){
                     obj = SortedObjectTable + i;
@@ -122,18 +122,21 @@ namespace patch {
             {
                 /*
                     for (int i = 0; i < 5000; i++) {
-                        if (layersetting[i].flag != 0 || layersetting[i].name != 0) {
+                        if (layersetting[i].flag != 0) {
+                            layer_save[i] = 1;
+                        }
+                        if (layersetting[i].name != 0) {
                             layer_save[i] = 1;
                         }
                     }
                 */
                 char code_put[] = {
-            /*\x8b*/"\x0d\x50\x62\x14\x00"        // mov     ecx,dword ptr [exedit+146250]
+                    "\xc6\x04\x16\x01"            // mov     byte ptr [esi+edx],01
                     "\x3b\xc1"                    // cmp     eax,ecx
-                    "\x7c\xe4"                    // jl      100326c4
+                    "\x7c\xe5"                    // jl      100326c4
                     "\xb8\x10\x27\x00\x00"        // mov     eax,0x2710 ; 10000
                     "\x48"                        // dec     eax
-                    "\x8b\x0c\x85\x98\x84\x18\x00"// mov     ecx,dword ptr [eax*4+ exedit+188498]
+                    "\x8b\x0c\x85\x98\x84\x18\x00"// mov     ecx,dword ptr [eax*4+ee+188498]
                     "\x85\xc9"                    // test    ecx,ecx
                     "\x74\x09"                    // jz      skip,9 ; 100326fa
                     "\x8b\xd0"                    // mov     edx,eax
@@ -141,17 +144,22 @@ namespace patch {
                     "\xc6\x04\x2a\x01"            // mov     byte ptr [edx+ebp],01
                     "\x85\xc0"                    // test    eax,eax
                     "\x75\xe7"                    // jnz     back,19 ; 100326e5
-                    "\x90"                        // nop
-                    "\x90"                        // nop
+                    "\x0f\x1f\x00"                // nop
                 };
 
-                *(int*)(&code_put[1]) = GLOBAL::exedit_base + 0x146250;
-                *(int*)(&code_put[18]) = GLOBAL::exedit_base + 0x188498;
+                store_i32(&code_put[17], GLOBAL::exedit_base + 0x188498);
 
-                OverWriteOnProtectHelper h(GLOBAL::exedit_base + 0x0326c3, 61);
-                h.store_i8(0, 0x1c);
 
-                memcpy(reinterpret_cast<void*>(h.address()+20), code_put, sizeof(code_put) - 1);
+                constexpr int vp_begin = 0x326c3;
+                OverWriteOnProtectHelper h(GLOBAL::exedit_base + vp_begin, 0x32700 - vp_begin);
+
+                h.store_i8(0x326c3 - vp_begin, '\x1b');
+                h.store_i8(0x326c5 - vp_begin, '\x14');
+                h.store_i8(0x326cd - vp_begin, '\x92');
+                h.store_i8(0x326d2 - vp_begin, '\xe8');
+                h.replaceNearJmp(0x326d3 - vp_begin, &clamp_edx_0_49);
+
+                memcpy(reinterpret_cast<void*>(h.address() + 0x326d7 - vp_begin), code_put, sizeof(code_put) - 1);
             }
 
 

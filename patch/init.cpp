@@ -24,7 +24,6 @@
 
 #include "config.hpp"
 
-
 void init_t::InitAtDllMain() {
 	ExchangeFunction(GLOBAL::aviutl_hmod, cstr_kernel32_dll.get(), cstr_EnumResourceLanguagesA.get(), EnumResourceLanguagesA_Wrap);
 }

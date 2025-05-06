@@ -484,6 +484,7 @@ namespace OFS {
 		constexpr i32 SettingDialog_ObjIdx = 0x177a10;
 		constexpr i32 get_last_filter_idx = 0x0335f0;
 		constexpr i32 get_filterp = 0x047b00;
+		constexpr i32 append_filter_effect = 0x033e00;
 		constexpr i32 swap_filter_effect = 0x033b30;
 		constexpr i32 delete_filter_effect = 0x033d20;
 
