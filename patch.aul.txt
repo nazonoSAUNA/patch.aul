@@ -2,7 +2,7 @@ patch.aul r43beta1
 © 2021-2023 ePi
 https://scrapbox.io/ePi5131/patch.aul
 
-patch.aul r43_ss_72
+patch.aul r43_ss_73
 https://scrapbox.io/nazosauna/patch.aul
 
 概要
@@ -224,6 +224,7 @@ https://scrapbox.io/nazosauna/patch.aul
     ・Susieのプラグインが正常に扱えない問題を修正
     ・相対パス保存プラグインのバグを修正（v0.9bのみ）
     ・exdataで使われるバイト列変換の過程で問題のある操作をしているのを修正
+    ・シーン番号が異常なオブジェクトがあると編集プロジェクトの保存時に例外となるのを修正
 
     追加
     ・コンソールの表示
@@ -362,9 +363,8 @@ https://scrapbox.io/nazosauna/patch.aul
         "susie_load" : boolean, ; Susieプラグインを正常に動かせないのを修正 (既定値: true)
         "avi_file_handle_close" : boolean, ; 動画ファイルオブジェクトを削除してもハンドルを閉じないように変更 (既定値: true)
         "avi_file_handle_share" : boolean, ; 同じ動画に対して動画ファイルのハンドルを共有させるように変更 (既定値: true)
-        "aup_load" : boolean, ; 設定ダイアログ表示中のオブジェクトIDが異常値のaupを読み込むとエラーとなるのを対策 (既定値: true)
-        "aup_layer_setting" : boolean, ; プロジェクトの保存時、レイヤー情報を保存する基準を変える (既定値: true)
-        "aup_scene_setting" : boolean, ; プロジェクトの保存/読み込み時にシーン設定の一部情報（グリッド設定など）が欠けるのを修正 (既定値: true)
+        "aup_save" : boolean, ; レイヤーとシーンの情報が正しく保存されるように修正。シーン番号が異常なオブジェクトによる例外の修正 (既定値: true)
+        "aup_load" : boolean, ; 設定ダイアログ表示中のオブジェクトIDが異常値のデータによる例外の修正。 (既定値: true)
         "load_exedit_backup" : boolean, ; 違うバージョンのバックアップファイルを開くのを試みることができるように変更 (既定値: true)
         "exo_aviutlfilter" : boolean, ; 拡張編集以外のフィルタ(例:拡張色調補正)を使ったプロジェクトをオブジェクトファイルに出力できないことがある (既定値: true)
         "exo_sceneidx" : boolean, ; オブジェクトファイルの入出力で、シーン番号を正しく扱えない (既定値: true)
@@ -518,7 +518,7 @@ https://scrapbox.io/nazosauna/patch.aul
 Lua追加要素詳細
     _PATCH
         patch.aulのバージョン情報
-        例として "patch.aul r43_ss_72" のような文字列が格納されている
+        例として "patch.aul r43_ss_73" のような文字列が格納されている
 
     obj.randex(seed,frame)
         seed : integer
