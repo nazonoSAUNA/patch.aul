@@ -174,6 +174,9 @@ void init_t::InitAtExeditLoad() {
 #endif
 
 
+#ifdef PATCH_SWITCH_AUP_SAVE
+	patch::aup_save.init();
+#endif
 #ifdef PATCH_SWITCH_AUP_LOAD
 	patch::aup_load.init();
 #endif

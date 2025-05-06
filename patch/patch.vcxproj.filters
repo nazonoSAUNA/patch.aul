@@ -612,6 +612,9 @@
       <Filter>feature</Filter>
     </ClInclude>
     <ClInclude Include="fast_div.hpp" />
+    <ClInclude Include="patch_aup_save.hpp">
+      <Filter>feature</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="init.cpp" />
@@ -1029,6 +1032,9 @@
       <Filter>feature</Filter>
     </ClCompile>
     <ClCompile Include="patch_aup_layer_setting.cpp">
+      <Filter>feature</Filter>
+    </ClCompile>
+    <ClCompile Include="patch_aup_save.cpp">
       <Filter>feature</Filter>
     </ClCompile>
   </ItemGroup>

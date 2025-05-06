@@ -47,6 +47,7 @@
     <ClInclude Include="patch_audio_preprocess.hpp" />
     <ClInclude Include="patch_aup_layer_setting.hpp" />
     <ClInclude Include="patch_aup_load.hpp" />
+    <ClInclude Include="patch_aup_save.hpp" />
     <ClInclude Include="patch_aup_scene_setting.hpp" />
     <ClInclude Include="patch_aviutl_wndproc_override.hpp" />
     <ClInclude Include="patch_avi_file_handle_close.hpp" />
@@ -268,6 +269,7 @@
     <ClCompile Include="patch_aup_load.cpp">
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
     </ClCompile>
+    <ClCompile Include="patch_aup_save.cpp" />
     <ClCompile Include="patch_aviutl_wndproc_override.cpp">
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
     </ClCompile>

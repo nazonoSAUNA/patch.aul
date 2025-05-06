@@ -118,9 +118,8 @@
 #define PATCH_SWITCH_TRA_CHANGE_MODE tra_change_mode
 #define PATCH_SWITCH_TRA_ACC_DEC_MOVEMENT tra_acc_dec_movement
 #define PATCH_SWITCH_TRA_SPECIFIED_SPEED tra_specified_speed
+#define PATCH_SWITCH_AUP_SAVE aup_save
 #define PATCH_SWITCH_AUP_LOAD aup_load
-#define PATCH_SWITCH_AUP_LAYER_SETTING aup_layer_setting
-#define PATCH_SWITCH_AUP_SCENE_SETTING aup_scene_setting
 #define PATCH_SWITCH_LOAD_EXEDIT_BACKUP load_exedit_backup
 #define PATCH_SWITCH_EXO_AVIUTL_FILTER exo_aviutl_filter
 // #define PATCH_SWITCH_EXO_TRACK_MINUSVAL exo_track_minusval // str_minusval実装により不要に

@@ -105,6 +105,9 @@ public:
             #ifdef PATCH_SWITCH_AVI_FILE_HANDLE_SHARE
                 patch::avi_file_handle_share.switch_load(cr);
             #endif
+            #ifdef PATCH_SWITCH_AUP_SAVE
+                patch::aup_save.switch_load(cr);
+            #endif
             #ifdef PATCH_SWITCH_AUP_LOAD
                 patch::aup_load.switch_load(cr);
             #endif
@@ -847,6 +850,9 @@ public:
             #endif
             #ifdef PATCH_SWITCH_AVI_FILE_HANDLE_SHARE
                 patch::avi_file_handle_share.switch_store(switch_);
+            #endif
+            #ifdef PATCH_SWITCH_AUP_SAVE
+                patch::aup_save.switch_store(switch_);
             #endif
             #ifdef PATCH_SWITCH_AUP_LOAD
                 patch::aup_load.switch_store(switch_);

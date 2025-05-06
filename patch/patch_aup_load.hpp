@@ -32,6 +32,8 @@ namespace patch {
 
     // (未) 異常なオブジェクトを削除するように変更
 
+    // 編集プロジェクト読み込み時にシーン設定の一部情報（グリッド設定など）が欠けるのを修正
+
     inline class aup_load_t {
         //static int __cdecl func_project_load_end();
 
@@ -85,6 +87,34 @@ namespace patch {
                 h.replaceNearJmp(1, &func_project_load_end);
             }
             */
+
+            { // 編集プロジェクト読み込み時にシーン設定の一部情報（グリッド設定など）が欠けるのを修正
+                /*
+                    10031b48 8b4648             mov     eax,dword ptr [esi+48]
+                    10031b4b c1e205             shl     edx,05
+                    10031b4e 8982587a1710       mov     dword ptr [edx+10177a58],eax
+                    10031b54 ...
+                    ↓
+                    10031b48 8bc7               mov     eax,edi
+                    10031b4a 90                 nop
+                    10031b4b c1e205             shl     edx,05
+                    10031b4e 8dbaXxXxXxXx       lea     edi,dword ptr [edx+exedit+177a58] ; Xの部分は書きかえなければ良い
+                    10031b54 ...       load_scene_setting_all
+                */
+                char load_scene_setting_all[] = {
+                    "\x83\xc6\x48"             // add     esi,+48
+                    "\xb9\x15\x00\x00\x00"     // mov     ecx,00000015 ; こっちは21(22項目目はこの後に別の判定がある)
+                    "\xf3\xa5"                 // rep     movsd
+                    "\x8b\xf8"                 // mov     edi,eax
+                    "\x81\xee\x9c\x00\x00\x00" // sub     esi,0000009c ; 21*4 + 0x48
+                    "\x81\xfb\x2b\x23\x00\x00" // cmp     ebx,0000232b
+                    "\xeb\x74"                 // jmp     skip,74 (10031be2)
+                };
+                OverWriteOnProtectHelper h(GLOBAL::exedit_base + 0x031b49, 37);
+                h.store_i16(0, '\xc7\x90');
+                h.store_i16(5, '\x8d\xba');
+                memcpy(reinterpret_cast<void*>(h.address(11)), load_scene_setting_all, sizeof(load_scene_setting_all) - 1);
+            }
         }
         void switching(bool flag) {
             enabled = flag;
