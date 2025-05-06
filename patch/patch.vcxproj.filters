@@ -65,9 +65,6 @@
     <ClInclude Include="patch_exo_specialcolorconv.hpp">
       <Filter>feature</Filter>
     </ClInclude>
-    <ClInclude Include="patch_exo_trackminusval.hpp">
-      <Filter>feature</Filter>
-    </ClInclude>
     <ClInclude Include="patch_exo_trackparam.hpp">
       <Filter>feature</Filter>
     </ClInclude>
@@ -199,12 +196,6 @@
     <ClInclude Include="patch_blend.hpp">
       <Filter>feature</Filter>
     </ClInclude>
-    <ClInclude Include="patch_rclickmenu_delete.hpp">
-      <Filter>feature</Filter>
-    </ClInclude>
-    <ClInclude Include="patch_rclickmenu_split.hpp">
-      <Filter>feature</Filter>
-    </ClInclude>
     <ClInclude Include="patch_tra_change_drawfilter.hpp">
       <Filter>feature</Filter>
     </ClInclude>
@@ -221,9 +212,6 @@
       <Filter>feature\fast</Filter>
     </ClInclude>
     <ClInclude Include="patch_obj_colorcorrection.hpp">
-      <Filter>feature</Filter>
-    </ClInclude>
-    <ClInclude Include="patch_aup_scene_setting.hpp">
       <Filter>feature</Filter>
     </ClInclude>
     <ClInclude Include="patch_colorpalette_cache.hpp">
@@ -254,9 +242,6 @@
       <Filter>feature</Filter>
     </ClInclude>
     <ClInclude Include="patch_scene_cache.hpp">
-      <Filter>feature</Filter>
-    </ClInclude>
-    <ClInclude Include="patch_aup_layer_setting.hpp">
       <Filter>feature</Filter>
     </ClInclude>
     <ClInclude Include="patch_fast_glow.hpp">
@@ -357,9 +342,6 @@
     </ClInclude>
     <ClInclude Include="simd.hpp" />
     <ClInclude Include="patch_obj_create_figure.hpp">
-      <Filter>feature</Filter>
-    </ClInclude>
-    <ClInclude Include="patch_sync_play_cursor.hpp">
       <Filter>feature</Filter>
     </ClInclude>
     <ClInclude Include="patch_exclusion_font.hpp">
@@ -575,9 +557,6 @@
     <ClInclude Include="patch_swap_filter.hpp">
       <Filter>feature</Filter>
     </ClInclude>
-    <ClInclude Include="patch_audio_ee_main.hpp">
-      <Filter>feature</Filter>
-    </ClInclude>
     <ClInclude Include="update_count.hpp">
       <Filter>feature</Filter>
     </ClInclude>
@@ -615,6 +594,9 @@
     <ClInclude Include="patch_aup_save.hpp">
       <Filter>feature</Filter>
     </ClInclude>
+    <ClInclude Include="patch_rclickmenu_split.hpp">
+      <Filter>feature</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="init.cpp" />
@@ -627,9 +609,6 @@
       <Filter>feature</Filter>
     </ClCompile>
     <ClCompile Include="patch_exception_log_dialog.cpp">
-      <Filter>feature</Filter>
-    </ClCompile>
-    <ClCompile Include="patch_exo_trackminusval.cpp">
       <Filter>feature</Filter>
     </ClCompile>
     <ClCompile Include="patch_helpful_msgbox.cpp">
@@ -705,12 +684,6 @@
       <Filter>feature</Filter>
     </ClCompile>
     <ClCompile Include="patch_blend.cpp">
-      <Filter>feature</Filter>
-    </ClCompile>
-    <ClCompile Include="patch_rclickmenu_delete.cpp">
-      <Filter>feature</Filter>
-    </ClCompile>
-    <ClCompile Include="patch_rclickmenu_split.cpp">
       <Filter>feature</Filter>
     </ClCompile>
     <ClCompile Include="patch_tra_change_drawfilter.cpp">
@@ -947,9 +920,6 @@
     <ClCompile Include="patch_tra_acc_dec_movement.cpp">
       <Filter>feature</Filter>
     </ClCompile>
-    <ClCompile Include="patch_audio_ee_main.cpp">
-      <Filter>feature</Filter>
-    </ClCompile>
     <ClCompile Include="patch_obj_volumefade.cpp">
       <Filter>feature</Filter>
     </ClCompile>
@@ -1031,10 +1001,10 @@
     <ClCompile Include="patch_obj_groupcontrol.cpp">
       <Filter>feature</Filter>
     </ClCompile>
-    <ClCompile Include="patch_aup_layer_setting.cpp">
+    <ClCompile Include="patch_aup_save.cpp">
       <Filter>feature</Filter>
     </ClCompile>
-    <ClCompile Include="patch_aup_save.cpp">
+    <ClCompile Include="patch_rclickmenu_split.cpp">
       <Filter>feature</Filter>
     </ClCompile>
   </ItemGroup>

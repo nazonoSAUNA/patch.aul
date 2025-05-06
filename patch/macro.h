@@ -122,7 +122,6 @@
 #define PATCH_SWITCH_AUP_LOAD aup_load
 #define PATCH_SWITCH_LOAD_EXEDIT_BACKUP load_exedit_backup
 #define PATCH_SWITCH_EXO_AVIUTL_FILTER exo_aviutl_filter
-// #define PATCH_SWITCH_EXO_TRACK_MINUSVAL exo_track_minusval // str_minusval実装により不要に
 #define PATCH_SWITCH_EXO_SCENEIDX exo_sceneidx
 #define PATCH_SWITCH_EXO_TRACKPARAM exo_trackparam
 #define PATCH_SWITCH_EXO_MIDPT_AND_TRA exo_midpt_tra
@@ -179,7 +178,6 @@
 #define PATCH_SWITCH_BORDER_ONLY_TEXT border_only_text
 #define PATCH_SWITCH_GGO_BITMAP_TEXT ggo_bitmap_text
 #define PATCH_SWITCH_RCLICKMENU_SPLIT rclickmenu_split
-// #define PATCH_SWITCH_RCLICKMENU_DELETE rclickmenu_delete // undo追加更新により不要に
 #define PATCH_SWITCH_MIDPT_DELETE midpt_delete
 #define PATCH_SWITCH_BLEND blend
 #define PATCH_SWITCH_ADD_EXTENSION add_extension
@@ -187,7 +185,6 @@
 #define PATCH_SWITCH_PAGE_SIZE_ALLOC page_size_alloc
 #define PATCH_SWITCH_SCENE_CACHE scenecache
 #define PATCH_SWITCH_SCENE_VRAM scenevram
-// #define PATCH_SWITCH_AUDIO_EE_MAIN audio_ee_main // audio_filtered_cacheに移行
 #define PATCH_SWITCH_AUDIO_EFPI_INIT audio_efpi_init
 #define PATCH_SWITCH_AUDIO_LAYER_END audio_layer_end
 // #define PATCH_SWITCH_AUDIO_PREPROCESS audio_preprocess
@@ -201,7 +198,6 @@
 #define PATCH_SWITCH_GROUP_CAMERA_SCENE group_camera_scene
 #define PATCH_SWITCH_CHANGE_DISP_SCENE change_dispscene
 #define PATCH_SWITCH_RIGHT_TRACKBAR right_trackbar
-// #define PATCH_SWITCH_SYNC_PLAY_CURSOR sync_play_cursor // 副作用が見つかった&字間行間修正でほぼ起こらないので
 #define PATCH_SWITCH_ANY_OBJ any_obj
 #define PATCH_SWITCH_OBJECT_COPY object_copy
 #define PATCH_SWITCH_PASTE_POS paste_pos

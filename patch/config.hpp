@@ -111,12 +111,6 @@ public:
             #ifdef PATCH_SWITCH_AUP_LOAD
                 patch::aup_load.switch_load(cr);
             #endif
-            #ifdef PATCH_SWITCH_AUP_LAYER_SETTING
-                patch::aup_layer_setting.switch_load(cr);
-            #endif
-            #ifdef PATCH_SWITCH_AUP_SCENE_SETTING
-                patch::aup_scene_setting.switch_load(cr);
-            #endif
             #ifdef PATCH_SWITCH_LOAD_EXEDIT_BACKUP
                 patch::load_exedit_backup.switch_load(cr);
             #endif
@@ -128,9 +122,6 @@ public:
             #endif
             #ifdef PATCH_SWITCH_EXO_TRACKPARAM
                 patch::exo_trackparam.switch_load(cr);
-            #endif
-            #ifdef PATCH_SWITCH_EXO_TRACK_MINUSVAL
-                patch::exo_trackminusval.switch_load(cr);
             #endif
             #ifdef PATCH_SWITCH_EXO_MIDPT_AND_TRA
                 patch::exo_midpt_and_tra.switch_load(cr);
@@ -300,9 +291,6 @@ public:
             #ifdef PATCH_SWITCH_RCLICKMENU_SPLIT
                 patch::rclickmenu_split.switch_load(cr);
             #endif
-            #ifdef PATCH_SWITCH_RCLICKMENU_DELETE
-                patch::rclickmenu_delete.switch_load(cr);
-            #endif
             #ifdef PATCH_SWITCH_MIDPT_DELETE
                 patch::midpt_delete.switch_load(cr);
             #endif
@@ -318,17 +306,11 @@ public:
             #ifdef PATCH_SWITCH_PAGE_SIZE_ALLOC
                 patch::page_size_alloc.switch_load(cr);
             #endif
-            #ifdef PATCH_SWITCH_SECOND_CACHE
-                patch::second_cache.switch_load(cr);
-            #endif
             #ifdef PATCH_SWITCH_SCENE_CACHE
                 patch::scene_cache.switch_load(cr);
             #endif
             #ifdef PATCH_SWITCH_SCENE_VRAM
                 patch::scene_vram.switch_load(cr);
-            #endif
-            #ifdef PATCH_SWITCH_AUDIO_EE_MAIN
-                patch::audio_ee_main.switch_load(cr);
             #endif
             #ifdef PATCH_SWITCH_AUDIO_EFPI_INIT
                 patch::audio_efpi_init.switch_load(cr);
@@ -371,9 +353,6 @@ public:
             #endif
             #ifdef PATCH_SWITCH_RIGHT_TRACKBAR
                 patch::right_trackbar.switch_load(cr);
-            #endif
-            #ifdef PATCH_SWITCH_SYNC_PLAY_CURSOR
-                patch::sync_play_cursor.switch_load(cr);
             #endif
             #ifdef PATCH_SWITCH_ANY_OBJ
                 patch::any_obj.switch_load(cr);
@@ -857,12 +836,6 @@ public:
             #ifdef PATCH_SWITCH_AUP_LOAD
                 patch::aup_load.switch_store(switch_);
             #endif
-            #ifdef PATCH_SWITCH_AUP_LAYER_SETTING
-                patch::aup_layer_setting.switch_store(switch_);
-            #endif
-            #ifdef PATCH_SWITCH_AUP_SCENE_SETTING
-                patch::aup_scene_setting.switch_store(switch_);
-            #endif
             #ifdef PATCH_SWITCH_LOAD_EXEDIT_BACKUP
                 patch::load_exedit_backup.switch_store(switch_);
             #endif
@@ -874,9 +847,6 @@ public:
             #endif
             #ifdef PATCH_SWITCH_EXO_TRACKPARAM
                 patch::exo_trackparam.switch_store(switch_);
-            #endif
-            #ifdef PATCH_SWITCH_EXO_TRACK_MINUSVAL
-                patch::exo_trackminusval.switch_store(switch_);
             #endif
             #ifdef PATCH_SWITCH_EXO_MIDPT_AND_TRA
                 patch::exo_midpt_and_tra.switch_store(switch_);
@@ -1046,9 +1016,6 @@ public:
             #ifdef PATCH_SWITCH_RCLICKMENU_SPLIT
                 patch::rclickmenu_split.switch_store(switch_);
             #endif
-            #ifdef PATCH_SWITCH_RCLICKMENU_DELETE
-                patch::rclickmenu_delete.switch_store(switch_);
-            #endif
             #ifdef PATCH_SWITCH_MIDPT_DELETE
                 patch::midpt_delete.switch_store(switch_);
             #endif
@@ -1064,17 +1031,11 @@ public:
             #ifdef PATCH_SWITCH_PAGE_SIZE_ALLOC
                 patch::page_size_alloc.switch_store(switch_);
             #endif
-            #ifdef PATCH_SWITCH_SECOND_CACHE
-                patch::second_cache.switch_store(switch_);
-            #endif
             #ifdef PATCH_SWITCH_SCENE_CACHE
                 patch::scene_cache.switch_store(switch_);
             #endif
             #ifdef PATCH_SWITCH_SCENE_VRAM
                 patch::scene_vram.switch_store(switch_);
-            #endif
-            #ifdef PATCH_SWITCH_AUDIO_EE_MAIN
-                patch::audio_ee_main.switch_store(switch_);
             #endif
             #ifdef PATCH_SWITCH_AUDIO_EFPI_INIT
                 patch::audio_efpi_init.switch_store(switch_);
@@ -1117,9 +1078,6 @@ public:
             #endif
             #ifdef PATCH_SWITCH_RIGHT_TRACKBAR
                 patch::right_trackbar.switch_store(switch_);
-            #endif
-            #ifdef PATCH_SWITCH_SYNC_PLAY_CURSOR
-                patch::sync_play_cursor.switch_store(switch_);
             #endif
             #ifdef PATCH_SWITCH_ANY_OBJ
                 patch::any_obj.switch_store(switch_);

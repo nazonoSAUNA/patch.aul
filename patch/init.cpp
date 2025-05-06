@@ -180,12 +180,6 @@ void init_t::InitAtExeditLoad() {
 #ifdef PATCH_SWITCH_AUP_LOAD
 	patch::aup_load.init();
 #endif
-#ifdef PATCH_SWITCH_AUP_LAYER_SETTING
-	patch::aup_layer_setting.init();
-#endif
-#ifdef PATCH_SWITCH_AUP_SCENE_SETTING
-	patch::aup_scene_setting.init();
-#endif
 #ifdef PATCH_SWITCH_LOAD_EXEDIT_BACKUP
 	patch::load_exedit_backup.init();
 #endif
@@ -199,10 +193,6 @@ void init_t::InitAtExeditLoad() {
 
 #ifdef PATCH_SWITCH_EXO_TRACKPARAM
 	patch::exo_trackparam.init();
-#endif
-
-#ifdef PATCH_SWITCH_EXO_TRACK_MINUSVAL
-	patch::exo_trackminusval.init();
 #endif
 
 #ifdef PATCH_SWITCH_EXO_MIDPT_AND_TRA
@@ -367,9 +357,6 @@ void init_t::InitAtExeditLoad() {
 #ifdef PATCH_SWITCH_RCLICKMENU_SPLIT
 	patch::rclickmenu_split.init();
 #endif
-#ifdef PATCH_SWITCH_RCLICKMENU_DELETE
-	patch::rclickmenu_delete.init();
-#endif
 #ifdef PATCH_SWITCH_MIDPT_DELETE
 	patch::midpt_delete.init();
 #endif
@@ -382,17 +369,11 @@ void init_t::InitAtExeditLoad() {
 #ifdef PATCH_SWITCH_PAGE_SIZE_ALLOC
 	patch::page_size_alloc.init();
 #endif
-#ifdef PATCH_SWITCH_SECOND_CACHE
-	patch::second_cache.init();
-#endif
 #ifdef PATCH_SWITCH_SCENE_CACHE
 	patch::scene_cache.init();
 #endif
 #ifdef PATCH_SWITCH_SCENE_VRAM
 	patch::scene_vram.init();
-#endif
-#ifdef PATCH_SWITCH_AUDIO_EE_MAIN
-	patch::audio_ee_main.init();
 #endif
 #ifdef PATCH_SWITCH_AUDIO_LAYER_END
 	patch::audio_layer_end.init();
@@ -432,9 +413,6 @@ void init_t::InitAtExeditLoad() {
 #endif
 #ifdef PATCH_SWITCH_RIGHT_TRACKBAR
 	patch::right_trackbar.init();
-#endif
-#ifdef PATCH_SWITCH_SYNC_PLAY_CURSOR
-	patch::sync_play_cursor.init();
 #endif
 #ifdef PATCH_SWITCH_ANY_OBJ
 	patch::any_obj.init();

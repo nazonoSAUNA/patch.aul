@@ -40,15 +40,12 @@
     <ClInclude Include="patch_adjust_vmem.hpp" />
     <ClInclude Include="patch_alpha_bg.hpp" />
     <ClInclude Include="patch_any_obj.hpp" />
-    <ClInclude Include="patch_audio_ee_main.hpp" />
     <ClInclude Include="patch_audio_efpi_init.hpp" />
     <ClInclude Include="patch_audio_filtered_cache.hpp" />
     <ClInclude Include="patch_audio_layer_end.hpp" />
     <ClInclude Include="patch_audio_preprocess.hpp" />
-    <ClInclude Include="patch_aup_layer_setting.hpp" />
     <ClInclude Include="patch_aup_load.hpp" />
     <ClInclude Include="patch_aup_save.hpp" />
-    <ClInclude Include="patch_aup_scene_setting.hpp" />
     <ClInclude Include="patch_aviutl_wndproc_override.hpp" />
     <ClInclude Include="patch_avi_file_handle_close.hpp" />
     <ClInclude Include="patch_avi_file_handle_share.hpp" />
@@ -132,6 +129,7 @@
     <ClInclude Include="patch_page_size_alloc.hpp" />
     <ClInclude Include="patch_paste_pos.hpp" />
     <ClInclude Include="patch_playback_pos.hpp" />
+    <ClInclude Include="patch_rclickmenu_split.hpp" />
     <ClInclude Include="patch_read_audio.hpp" />
     <ClInclude Include="patch_relative_path.hpp" />
     <ClInclude Include="patch_rendering.hpp" />
@@ -155,7 +153,6 @@
     <ClInclude Include="patch_exo_midpt_and_tra.hpp" />
     <ClInclude Include="patch_exo_sceneidx.hpp" />
     <ClInclude Include="patch_exo_specialcolorconv.hpp" />
-    <ClInclude Include="patch_exo_trackminusval.hpp" />
     <ClInclude Include="patch_exo_trackparam.hpp" />
     <ClInclude Include="patch_failed_file_drop.hpp" />
     <ClInclude Include="patch_failed_longer_path.hpp" />
@@ -191,8 +188,6 @@
     <ClInclude Include="patch_obj_noise.hpp" />
     <ClInclude Include="patch_obj_specialcolorconv.hpp" />
     <ClInclude Include="patch_playback_speed.hpp" />
-    <ClInclude Include="patch_rclickmenu_delete.hpp" />
-    <ClInclude Include="patch_rclickmenu_split.hpp" />
     <ClInclude Include="patch_redo.hpp" />
     <ClInclude Include="patch_scene_cache.hpp" />
     <ClInclude Include="patch_scroll_objdlg.hpp" />
@@ -206,7 +201,6 @@
     <ClInclude Include="patch_str_minusval.hpp" />
     <ClInclude Include="patch_susie_load.hpp" />
     <ClInclude Include="patch_swap_filter.hpp" />
-    <ClInclude Include="patch_sync_play_cursor.hpp" />
     <ClInclude Include="patch_sysinfo_write.hpp" />
     <ClInclude Include="patch_text_op_size.hpp" />
     <ClInclude Include="patch_theme_cc.hpp" />
@@ -254,16 +248,10 @@
     <ClCompile Include="patch_any_obj.cpp">
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
     </ClCompile>
-    <ClCompile Include="patch_audio_ee_main.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
-    </ClCompile>
     <ClCompile Include="patch_audio_filtered_cache.cpp">
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
     </ClCompile>
     <ClCompile Include="patch_audio_layer_end.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
-    </ClCompile>
-    <ClCompile Include="patch_aup_layer_setting.cpp">
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
     </ClCompile>
     <ClCompile Include="patch_aup_load.cpp">
@@ -390,6 +378,7 @@
     <ClCompile Include="patch_playback_speed.cpp">
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
     </ClCompile>
+    <ClCompile Include="patch_rclickmenu_split.cpp" />
     <ClCompile Include="patch_read_audio.cpp" />
     <ClCompile Include="patch_relative_path.cpp">
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
@@ -420,9 +409,6 @@
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
     </ClCompile>
     <ClCompile Include="patch_exception_log_dialog.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
-    </ClCompile>
-    <ClCompile Include="patch_exo_trackminusval.cpp">
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
     </ClCompile>
     <ClCompile Include="patch_failed_longer_path.cpp">
@@ -466,12 +452,6 @@
     <ClCompile Include="patch_obj_colorcorrection.cpp" />
     <ClCompile Include="patch_obj_imageloop.cpp" />
     <ClCompile Include="patch_obj_lensblur.cpp" />
-    <ClCompile Include="patch_rclickmenu_delete.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
-    </ClCompile>
-    <ClCompile Include="patch_rclickmenu_split.cpp">
-      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
-    </ClCompile>
     <ClCompile Include="patch_redo.cpp">
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MinSpace</Optimization>
     </ClCompile>

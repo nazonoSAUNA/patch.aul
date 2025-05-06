@@ -21,7 +21,6 @@
 #include "util.hpp"
 #include "util_resource.hpp"
 
-#include "patch_exo_trackminusval.hpp"
 
 // playground
 inline class mywindow_t {
